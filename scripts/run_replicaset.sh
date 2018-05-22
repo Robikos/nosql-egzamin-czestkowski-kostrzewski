@@ -6,3 +6,5 @@ mongod --port $(27000 + $1)
        --replSet mongo-replset
        --dbpath ./mongo-replset/
        --bind_ip localhost
+       --fork
+       --logpath ./mongodb.log
