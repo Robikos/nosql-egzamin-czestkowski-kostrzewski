@@ -24,7 +24,7 @@ namespace :deploy do
     on roles(:app) do
       within release_path do
         ## deploy stack
-        execute :"docker-compose", "up -f docker-compose-server2.yml"
+        execute :"docker-compose", "up -d --force-recreate -f docker-compose-server2.yml"
       end
     end
   end
