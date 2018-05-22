@@ -1,8 +1,15 @@
 version: '3.1'
 
 services:
+  run:
+    build: .
+    command: ./init.sh 1
+    ports:
+     - "27001:27001"
+     - "27002:27002"
   mongo:
     image: mongo
+    command: .
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
