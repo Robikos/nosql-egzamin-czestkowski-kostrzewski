@@ -21,7 +21,7 @@
 
 https://drive.google.com/file/d/1C77wNGBP31aqwRqsyfSmIjzDsPNoXvgB/view?usp=sharing
 
-# Zadanie 1 - Moje dane
+# Projekt na zaliczenie- egzamin
 
 Zadaniem było zaimportowanie dużej bazy danych w formacie JSON do bazy danych MongoDB w różnych wersjach:
 
@@ -257,8 +257,6 @@ Aby oszacować różnice w czasach importu, zaimportuję też bazę danych punk
 | Markets   | W: 2, J: 0  | 2 000 000         | 26.52s     | 38.2s      | 2.9s       |
 | PktAddr   | W: 1, J: 1  | ok 300 000        | 5.46s      | 7.7s       | 0.6s       |
 
-
-# Zadanie 2 - Projekt na zaliczenie
 
 ## Założenie
 
