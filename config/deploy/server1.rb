@@ -7,7 +7,7 @@
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
 
-server "139.59.177.113", user: "root"
+server "139.59.177.113", user: "root", roles: %w{app}
 
 # set :default_env, lambda {
 #   {
@@ -21,9 +21,11 @@ server "139.59.177.113", user: "root"
 
 namespace :deploy do
   after :finishing, :notify do
-    within release_path do
-      ## deploy stack
-      execute :docker, "stack deploy -c docker-compose.yml"
+    on roles(:app) do
+      within release_path do
+        ## deploy stack
+        execute :"docker-compose", "up"
+      end
     end
   end
 end
