@@ -3,10 +3,13 @@ version: '3.1'
 services:
   run:
     image: ruby:latest
-    command: ./init.sh 2
+    command: ./scripts/init.sh 2
     ports:
-     - "27001:27001"
-     - "27002:27002"
+      - "27001:27001"
+      - "27002:27002"
+    volumes:
+      - ./scripts/:./scripts/
+      - ./ruby/:./ruby/
   mongo:
     image: mongo
     command: ./scripts/run_replicaset.sh 2
