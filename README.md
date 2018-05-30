@@ -279,14 +279,15 @@ W skrypcie sprawdzono następujące operacje:
 * First market full info
 * Find first 5 cities of markets
 * Count of Markets with bigger area than the first market
+* MapReduce
 
 ## Wyniki
 
-| Kolekcja  | Operacja                          | Wielkość kolekcji | Real                    | User       | System     |
-|-----------|-----------------------------------|-------------------|-------------------------|------------|------------|
-| Markets   | Number of places in document      | 2 000 000         | 0.0003692000056616962s  | 0.0s       | 0.0s       |
-| Markets   | Market with the biggest area      | 2 000 000         | 3.6317685999907554s     | 0.0s       | 0.0s       |
-| Markets   | First market full info            | 2 000 000         | 0.0005043999990448356s  | 0.0s       | 0.0s       |
-| Markets   | Find first 5 cities of markets    | 2 000 000         | 2.300000051036477e-05s  | 0.0s       | 0.0s       |
-| Markets   | Count of Markets area>200         | 2 000 000         | 1.88s                   | 0.0s       | 0.0s       |
-
+| Kolekcja  | Operacja                          | Wielkość kolekcji | Wynik lokalnie          | Wynik ReplSet Docker    |
+|-----------|-----------------------------------|-------------------|-------------------------|-------------------------|
+| Markets   | Number of places in document      | 2 000 000         | 0.0003692000056616962s  | 4.25s                   |
+| Markets   | Market with the biggest area      | 2 000 000         | 3.6317685999907554s     | 15.2s                   |
+| Markets   | First market full info            | 2 000 000         | 0.0005043999990448356s  | 2.2s                    |
+| Markets   | Find first 5 cities of markets    | 2 000 000         | 2.300000051036477e-05s  | 2.4s                    |
+| Markets   | Count of Markets area>200         | 2 000 000         | 1.88s                   | 18.5s                   |
+| Markets   | MapReduce - suma areas            | 2 000 000         | 1.88s                   | 12.8s                   |

@@ -2,18 +2,36 @@ version: '3.1'
 
 services:
   run:
-    image: ruby:latest
-    command: ./scripts/init.sh 1
-    ports:
-      - "27001:27001"
-      - "27002:27002"
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    # command: /scripts/init.sh 1; sleep infinity
+    command: sleep infinity
     volumes:
-      - ./scripts/:./scripts/
-      - ./ruby/:./ruby/
+      - ./scripts/:/scripts/
+      - ./ruby/:/ruby/
+    networks:
+      main:
+        aliases:
+          - run
+
   mongo:
     image: mongo
-    command: ./scripts/run_replicaset.sh 1
+    command: /scripts/run_replicaset.sh 27001
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - ./scripts/:/scripts/
+      - './mongo-replset/:/mongo-replset/'
+      - ./log/:/log
+    ports:
+      - '27001:27001'
+    networks:
+      main:
+        aliases:
+          - mongo
+
+networks:
+  main:

@@ -1,10 +1,2 @@
-if [ ! -d "./mongo-replset/" ]; then
-  mkdir mongo-replset
-fi
-
-mongod --port $(27000 + $1)
-       --replSet mongo-replset
-       --dbpath ./mongo-replset/
-       --bind_ip localhost
-       --fork
-       --logpath ./mongodb.log
+mongod --port $1 --replSet mongo-replset --dbpath /mongo-replset/ --fork --logpath /log/mongodb.log
+mongo /scripts/conf_replicaset.sh

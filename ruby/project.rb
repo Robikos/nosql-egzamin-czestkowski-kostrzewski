@@ -14,7 +14,13 @@ class Connection
   end
 
   def client
-    @client ||= Mongo::Client.new(["127.0.0.1:27017"], database: db_name)
+    # @client ||= Mongo::Client.new(["127.0.0.1:27017"], database: db_name)
+
+    @client ||= Mongo::MongoReplicaSetClient.new(
+      [
+        'seed1:27001',
+        'seed2:27002'
+      ]).db(db_name)
   end
 
   private
@@ -30,7 +36,7 @@ class Main
   def call
     puts "Connection established" if connection
 
-    puts "*** Project 1 - Robert Kostrzewski - 244226 ***"
+    puts "*** Project 2"
 
     puts "Number of places in document - #{collection_count}"
     print_benchmark { collection_count }
@@ -48,6 +54,9 @@ class Main
     puts "Count of Markets with bigger area than the first market"
     puts "- #{count_bigger_markets_than_first(centre_point)}"
     print_benchmark { count_bigger_markets_than_first(centre_point) }
+
+    puts "Map reduce"
+    print_benchmark { map_reduce_mongo }
   end
 
   private
@@ -87,6 +96,31 @@ class Main
         { "$match" => { area: { "$gte" => centre_point["area"] } } },
       ]
     ).count
+  end
+
+  def map_reduce_mongo
+    mapFunc =
+      %q(
+        var mapFunction1 = function() {
+          emit(this._id, {area: this.area});
+        };
+      )
+
+    reduceFunc =
+      %q(
+        var reduceFunction1 = function(keyCustId, values)
+        {
+          var a = values[0];
+          for (var i=1; i < values.length; i++)
+            {
+                 var b = values[i];
+                 a.area += b.area;
+            }
+          return a;
+       };
+      )
+
+    connection.collection.map_reduce(mapFunc, reduceFunc)
   end
 
   attr_reader :connection
